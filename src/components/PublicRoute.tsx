@@ -8,7 +8,7 @@ interface PublicRouteProps {
 }
 
 export default function PublicRoute({ children }: PublicRouteProps): JSX.Element {
-    const { user, userLoading, loading } = useAuth();
+    const { user, userLoading } = useAuth();
 
     if (userLoading) return <div className='h-svh flex justify-center items-center'><Loader size='larger' /></div>
 

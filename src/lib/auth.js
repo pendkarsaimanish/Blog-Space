@@ -12,6 +12,14 @@ export async function getAppwriteUser() {
   return await account.get();
 }
 
+export async function updateAppwriteEmail(email, password) {
+  return await account.updateEmail(email, password);
+}
+
+export async function updateAppwriteName(name) {
+  return await account.updateName(name);
+}
+
 export async function deleteUserSession() { 
     return await account.deleteSession('current')
 }

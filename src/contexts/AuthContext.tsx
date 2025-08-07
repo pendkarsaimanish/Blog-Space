@@ -80,7 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await deleteUserSession();
     }
 
-    return <AuthContext.Provider value={{ user, register, login, userLoading, logout, loading, error, }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ user, setUser, register, login, userLoading, logout, loading, error, }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

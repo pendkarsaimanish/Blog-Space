@@ -1,4 +1,5 @@
 import { Models } from "appwrite";
+import React from "react";
 
 export interface AppwriteUser extends Models.User {}
 
@@ -20,10 +21,17 @@ export interface Blog extends Models.Document {
 
 export interface AuthContextType {
   user: AppwriteUser | null;
+  setUser: React.Dispatch<React.SetStateAction<AppwriteUser | null>>;
   login: (email: string, password: string) => Promise<boolean>;
   register: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   loading: boolean;
   userLoading: boolean;
   error: string | null;
+}
+
+
+export interface ThemeContextType {
+  isDark: boolean;
+  toggleTheme: () => void;
 }
