@@ -9,14 +9,14 @@ import { BlogProvider } from "./contexts/BlogContext.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <ThemeProvider>
         <BlogProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </BlogProvider>
-      </AuthProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthProvider>
   </StrictMode>
 );

@@ -1,6 +1,6 @@
 import { account, ID } from "./appwrite";
 
-export async function createAppwriteUser(email, password, name ) {
+export async function createAppwriteUser(email, password, name) {
   return await account.create(ID.unique(), email, password, name);
 }
 
@@ -20,6 +20,10 @@ export async function updateAppwriteName(name) {
   return await account.updateName(name);
 }
 
-export async function deleteUserSession() { 
-    return await account.deleteSession('current')
+export async function updateUserPrefs(userId, data) {
+  return await account.updatePrefs(userId, data)
+}
+
+export async function deleteUserSession() {
+  return await account.deleteSession('current')
 }
