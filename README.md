@@ -81,9 +81,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 <!-- MARKDOWN BADGES & LINKS -->
 
-[react-badge]: https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=black
+[react-badge]: https://img.shields.io/badge/React-19.1.1-61DAFB?style=for-the-badge&logo=react&logoColor=black
 [react-url]: https://reactjs.org/
-[vite-badge]: https://img.shields.io/badge/Vite-4.4.5-646CFF?style=for-the-badge&logo=vite&logoColor=white
+[vite-badge]: https://img.shields.io/badge/Vite-7.1.0-646CFF?style=for-the-badge&logo=vite&logoColor=white
 [vite-url]: https://vitejs.dev/
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge
 [license-url]: https://opensource.org/licenses/MIT
