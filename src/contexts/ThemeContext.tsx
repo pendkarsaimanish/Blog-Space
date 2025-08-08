@@ -1,54 +1,53 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ThemeContextType } from '../types';
-import { useAuth } from './AuthContext';
-import { updateUserPrefs } from "../lib/auth"
+import { updateUserPrefs, getAppwriteUser } from "../lib/auth"
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user } = useAuth()
   const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
     const initTheme = async () => {
       try {
-        if (user?.prefs?.theme) {
-          setIsDark(user.prefs.theme === "dark");
+        const user = await getAppwriteUser();
+        const prefTheme = user?.prefs?.theme || "light";
+        setIsDark(prefTheme === "dark");
+
+        // Apply theme immediately
+        if (prefTheme === "dark") {
+          document.documentElement.classList.add("dark");
         } else {
-          // If user has no pref yet, fall back to localStorage
-          const saved = localStorage.getItem("theme");
-          setIsDark(saved ? JSON.parse(saved) : false);
+          document.documentElement.classList.remove("dark");
         }
-      } catch {
-        // Not logged in, use localStorage
-        const saved = localStorage.getItem("theme");
-        setIsDark(saved ? JSON.parse(saved) : false);
+      } catch (err) {
+        console.error("Error fetching user theme preference:", err);
       }
     };
+
     initTheme();
   }, []);
 
+  // Toggle and update Appwrite preference
+  const toggleTheme = async () => {
+    try {
+      const newTheme = !isDark ? "dark" : "light";
+      setIsDark(!isDark);
 
-  useEffect(() => {
-    const applyTheme = async () => {
-      localStorage.setItem("theme", JSON.stringify(isDark));
-
-      if (isDark) {
+      if (newTheme === "dark") {
         document.documentElement.classList.add("dark");
       } else {
         document.documentElement.classList.remove("dark");
       }
 
-      try {
-        await updateUserPrefs({ theme: isDark ? "dark" : "light" });
-      } catch {
-        // not logged in, skip
-      }
-    };
-    applyTheme();
-  }, [isDark]);
+      await updateUserPrefs({ theme: newTheme });
+    } catch (err) {
+      console.error("Error updating theme preference:", err);
+    }
+  };
 
-  const toggleTheme = () => setIsDark((prev) => !prev);
+
+  // const toggleTheme = () => setIsDark((prev) => !prev);
 
   return (
     <ThemeContext.Provider value={{ isDark, toggleTheme }}>
