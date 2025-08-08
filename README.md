@@ -21,12 +21,12 @@ Fast ⚡, Secure 🔒, and Designed for Creators 🎨.
 ## 🛠 Tech Stack
 | Tool / Library  | Role |
 | :-------------- | :--- |
-| ![React][react-shield] **React** | UI building |
-| ![Vite][vite-shield] **Vite** | Dev server & build tool |
-| ![Appwrite][appwrite-shield] **Appwrite** | Auth & backend |
-| ![Tailwind CSS][tailwind-shield] **Tailwind CSS** | Styling |
-| ![React Router][router-shield] **React Router** | Navigation |
-| ![MUI Joy][mui-shield] **MUI Joy** | Components |
+| **React** | UI building |
+| **Vite** | Dev server & build tool |
+| **Appwrite** | Auth & backend |
+| **Tailwind CSS** | Styling |
+| **React Router** | Navigation |
+| **MUI Joy** | Components |
 
 ---
 
