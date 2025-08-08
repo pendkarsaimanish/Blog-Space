@@ -21,7 +21,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           document.documentElement.classList.remove("dark");
         }
       } catch (err) {
-        console.error("Error fetching user theme preference:", err);
       }
     };
 
@@ -42,12 +41,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       await updateUserPrefs({ theme: newTheme });
     } catch (err) {
-      console.error("Error updating theme preference:", err);
     }
   };
 
 
-  // const toggleTheme = () => setIsDark((prev) => !prev);
 
   return (
     <ThemeContext.Provider value={{ isDark, toggleTheme }}>

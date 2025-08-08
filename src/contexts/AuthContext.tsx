@@ -78,6 +78,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const logout = async () => {
         setUser(null);
         await deleteUserSession();
+        document.documentElement.classList.remove("dark");
     }
 
     return <AuthContext.Provider value={{ user, setUser, register, login, userLoading, logout, loading, error, }}>{children}</AuthContext.Provider>

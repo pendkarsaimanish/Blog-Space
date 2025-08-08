@@ -6,13 +6,22 @@ import BlogCard from '../components/BlogCard';
 import Loader from '../components/Loader';
 import { Blog } from '../types';
 import { useBlog } from '../contexts/BlogContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Dashboard: React.FC = () => {
     const { user } = useAuth();
+    const { toggleTheme, isDark } = useTheme()
     const { blogs, loading } = useBlog()
     const [userBlogs, setUserBlogs] = useState<Blog[]>([]);
 
     useEffect(() => {
+
+        if (user) {
+            if (user.prefs.theme === 'dark') {
+                document.documentElement.classList.add("dark");
+            }
+        }
+
         if (blogs.length > 0 && user) {
             const uBlogs = blogs.filter(blog => blog.authorId === user?.$id)
             setUserBlogs(uBlogs);
