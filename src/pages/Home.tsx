@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { sampleBlogs } from '../data/sampleData';
 import BlogCard from '../components/BlogCard';
 import Loader from '../components/Loader';
 import { Search, PenTool, Plus } from 'lucide-react';
@@ -11,19 +10,9 @@ import { useBlog } from '../contexts/BlogContext';
 const Home: React.FC = () => {
   const { user } = useAuth();
   const { blogs, loading } = useBlog()
-  // const [blogs, setBlogs] = useState<Blog[]>([]);
-  // const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
 
-  // useEffect(() => {
-  //   // Simulate API call
-  //   setTimeout(() => {
-  //     setBlogs(sampleBlogs);
-  //     setFilteredBlogs(sampleBlogs);
-  //     setLoading(false);
-  //   }, 1000);
-  // }, []);
 
   useEffect(() => {
     const filtered = blogs.filter(blog =>
@@ -68,6 +57,28 @@ const Home: React.FC = () => {
         />
       </div>
 
+      {/* Blog Grid */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          {searchTerm ? `Search Results (${filteredBlogs.length})` : 'Latest Posts'}
+        </h2>
+
+        {filteredBlogs.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              {searchTerm ? 'No blogs found matching your search.' : 'No blogs available.'}
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredBlogs.map((blog) => (
+              <BlogCard key={blog.$id} blog={blog} />
+            ))}
+          </div>
+        )}
+      </div>
+
+
       {/* Call to Action for Authenticated Users */}
       {user && (
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 mb-12 text-center border border-blue-100 dark:border-blue-800">
@@ -93,26 +104,10 @@ const Home: React.FC = () => {
         </div>
       )}
 
-      {/* Blog Grid */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          {searchTerm ? `Search Results (${filteredBlogs.length})` : 'Latest Posts'}
-        </h2>
 
-        {filteredBlogs.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
-              {searchTerm ? 'No blogs found matching your search.' : 'No blogs available.'}
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredBlogs.map((blog) => (
-              <BlogCard key={blog.$id} blog={blog} />
-            ))}
-          </div>
-        )}
-      </div>
+
+
+
     </div>
   );
 };

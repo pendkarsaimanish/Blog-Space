@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Plus, BookOpen, Eye, Calendar, TrendingUp } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { sampleBlogs } from '../data/sampleData';
 import BlogCard from '../components/BlogCard';
 import Loader from '../components/Loader';
 import { Blog } from '../types';
@@ -42,24 +41,22 @@ const Dashboard: React.FC = () => {
                 </p> */}
             </div>
 
-            {/* Stats Grid */}
-            {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {stats.map((stat, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                                    {stat.value}
-                                </p>
-                                <p className="text-sm text-gray-600 dark:text-gray-300">
-                                    {stat.label}
-                                </p>
-                            </div>
-                            <stat.icon className={`w-8 h-8 ${stat.color}`} />
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                                {blogs.length}
+                            </p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                                Published Posts
+                            </p>
                         </div>
+                        <BookOpen className={"w-8 h-8 text-blue-600 dark:text-blue-400"} />
                     </div>
-                ))}
-            </div> */}
+                </div>
+            </div>
+
 
             {/* Quick Actions */}
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md mb-8">
