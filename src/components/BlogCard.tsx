@@ -22,7 +22,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           {blog.title}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-          {blog.excerpt}
+          {blog.body}
         </p>
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
@@ -32,7 +32,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           </div>
           <div className="flex items-center space-x-1">
             <Calendar size={14} />
-            <span>{formatDate(blog.publishedAt)}</span>
+            <span>{formatDate(blog.$createdAt)}</span>
           </div>
           {/* <div className="flex items-center space-x-1">
             <Clock size={14} />

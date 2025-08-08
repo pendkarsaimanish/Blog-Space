@@ -26,9 +26,29 @@ export async function getUser(userId) {
   ]);
 }
 
-export async function updateUser() {}
+export async function updateUser() { }
 
-export async function createBlogPost() {}
-export async function updateBlogPost() {}
-export async function listBlogPost() {}
-export async function deleteBlogPost() {}
+export async function createBlogPost(title, body, tags, authorId, authorName, createdAt, updatedAt) {
+  return await databases.createDocument(
+    DOCUMENT_ID,
+    BLOG_COLLECTION,
+    ID.unique(),
+    {
+      title,
+      body,
+      tags,
+      authorId,
+      authorName,
+      createdAt,
+      updatedAt
+    }
+  )
+
+}
+
+export async function listBlogPosts() {
+  return await databases.listDocuments(DOCUMENT_ID, BLOG_COLLECTION)
+}
+
+export async function updateBlogPost() { }
+export async function deleteBlogPost() { }

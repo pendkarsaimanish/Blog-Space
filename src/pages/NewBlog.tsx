@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router';
 import { Save, Eye, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import Loader from '../components/Loader';
+import { createBlogPost } from '../lib/database1';
+import { useBlog } from '../contexts/BlogContext';
 
 const NewBlog: React.FC = () => {
   const { user } = useAuth();
+  const { setBlogs } = useBlog()
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -35,14 +38,34 @@ const NewBlog: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const date = new Date(); // Or any other date object
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+    const formattedDate = formatter.format(date);
+
     if (!formData.title.trim() || !formData.content.trim()) {
       alert('Please fill in the title and content');
       return;
     }
 
     setLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    console.log(formData)
+
+    const createBlog = await createBlogPost(
+      formData.title,
+      formData.content,
+      formData.tags.split(",").map(tag => tag.trim()),
+      user.$id,
+      user.name,
+      formattedDate,
+      ''
+    )
+    setBlogs(createBlog)
     setLoading(false);
 
     // In a real app, you would save the blog post here

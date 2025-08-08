@@ -6,27 +6,28 @@ import { Search, PenTool, Plus } from 'lucide-react';
 import { Blog } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router';
+import { useBlog } from '../contexts/BlogContext';
 
 const Home: React.FC = () => {
   const { user } = useAuth();
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { blogs, loading } = useBlog()
+  // const [blogs, setBlogs] = useState<Blog[]>([]);
+  // const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
 
-  useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setBlogs(sampleBlogs);
-      setFilteredBlogs(sampleBlogs);
-      setLoading(false);
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   // Simulate API call
+  //   setTimeout(() => {
+  //     setBlogs(sampleBlogs);
+  //     setFilteredBlogs(sampleBlogs);
+  //     setLoading(false);
+  //   }, 1000);
+  // }, []);
 
   useEffect(() => {
     const filtered = blogs.filter(blog =>
       blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      blog.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
       blog.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
     );
     setFilteredBlogs(filtered);
@@ -107,7 +108,7 @@ const Home: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredBlogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
+              <BlogCard key={blog.$id} blog={blog} />
             ))}
           </div>
         )}

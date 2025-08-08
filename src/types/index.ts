@@ -30,6 +30,13 @@ export interface AuthContextType {
   error: string | null;
 }
 
+export interface BlogContextType {
+  blogs: Blog[];
+  setBlogs: React.Dispatch<React.SetStateAction<Blog[]>>;
+  loading: boolean;
+  error: string | null;
+}
+
 
 export interface ThemeContextType {
   isDark: boolean;
