@@ -9,6 +9,8 @@ import Profile from "./pages/Profile.tsx";
 import About from "./pages/About.tsx"
 import Layout from "./components/Layout.tsx"
 import NewBlog from "./pages/NewBlog.tsx";
+import BlogDetails from "./pages/BlogDetails";
+import PublicProfile from "./pages/PublicProfile.tsx";
 
 function App() {
   return (
@@ -44,6 +46,10 @@ function App() {
           } />
 
           <Route path="/new-blog" element={<NewBlog />} />
+
+          <Route path="/blog/:id" element={<BlogDetails />} />
+
+          <Route path="/author/:authorId" element={<PublicProfile />} />
         </Routes>
       </Layout>
     </>

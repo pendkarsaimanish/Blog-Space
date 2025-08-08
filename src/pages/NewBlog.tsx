@@ -54,23 +54,28 @@ const NewBlog: React.FC = () => {
 
     setLoading(true);
 
-    console.log(formData)
-
-    const createBlog = await createBlogPost(
-      formData.title,
-      formData.content,
-      formData.tags.split(",").map(tag => tag.trim()),
-      user.$id,
-      user.name,
-      formattedDate,
-      ''
-    )
-    setBlogs(createBlog)
-    setLoading(false);
-
-    // In a real app, you would save the blog post here
-    alert('Blog post created successfully!');
-    navigate('/dashboard');
+    try {
+      const newBlog = await createBlogPost(
+        formData.title,
+        formData.content,
+        formData.tags.split(",").map(tag => tag.trim()),
+        user.$id,
+        user.name,
+        formattedDate,
+        ''
+      );
+      
+      // Update the blogs list with the new blog
+      setBlogs(prev => [newBlog, ...prev]);
+      
+      alert('Blog post created successfully!');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error creating blog post:', error);
+      alert('Failed to create blog post. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const generateExcerpt = (content: string) => {

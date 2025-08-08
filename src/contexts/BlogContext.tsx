@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Blog, BlogContextType } from "../types";
-// import { listBlogPosts } from "../lib/database";
 import { listBlogPosts } from "../lib/database1"
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
@@ -8,7 +7,7 @@ const BlogContext = createContext<BlogContextType | undefined>(undefined);
 export const BlogProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [blogs, setBlogs] = useState<Blog[]>([])
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
         const getBlogs = async () => {
@@ -17,17 +16,13 @@ export const BlogProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const b = await listBlogPosts()
                 if (b) {
                     setBlogs(b.documents)
-                    setLoading(false)
                 }
             } catch (err) {
-                setError(err.message)
-                setLoading(false)
+                setError((err as Error).message)
             } finally { setLoading(false) }
         }
         getBlogs()
     }, [])
-
-
 
     return <BlogContext.Provider value={{ blogs, setBlogs, loading, error }}>{children}</BlogContext.Provider>
 }

@@ -9,15 +9,15 @@ import { useBlog } from '../contexts/BlogContext';
 
 const Dashboard: React.FC = () => {
     const { user } = useAuth();
-    const { blogs, setBlogs, loading } = useBlog()
-    const [userBlogs, setUserBlogs] = useState<Blog[]>([])
+    const { blogs, loading } = useBlog()
+    const [userBlogs, setUserBlogs] = useState<Blog[]>([]);
 
     useEffect(() => {
-        if (blogs) {
+        if (blogs.length > 0 && user) {
             const uBlogs = blogs.filter(blog => blog.authorId === user?.$id)
             setUserBlogs(uBlogs);
         }
-    }, [user]);
+    }, [blogs, user]);
 
     if (!user) {
         return (
@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                                {blogs.length}
+                                {userBlogs.length}
                             </p>
                             <p className="text-sm text-gray-600 dark:text-gray-300">
                                 Published Posts
