@@ -5,8 +5,8 @@ const process = import.meta.env;
 export const client = new Client();
 
 client
-  .setEndpoint(process.VITE_APPWRITE_URL)
-  .setProject(process.VITE_APPWRITE_PROJECT_ID)
+  .setEndpoint(process.VITE_APPWRITE_APIENDPOINT)
+  .setProject(process.VITE_APPWRITE_PROJECT)
   .setDevKey(process.VITE_APPWRITE_DEVKEY);
 
 export const account = new Account(client);
